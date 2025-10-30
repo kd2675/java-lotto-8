@@ -1,6 +1,7 @@
 package lotto.service;
 
 import camp.nextstep.edu.missionutils.Randoms;
+import lotto.io.Output;
 import lotto.vo.Item;
 import lotto.vo.Lotto;
 import lotto.vo.Wallet;
@@ -15,6 +16,8 @@ public class LottoService {
         for (int i = 0; i < money / price; i++) {
             buyLotto(wallet);
         }
+
+        Output.printPurchaseResult(wallet);
     }
 
     private void buyLotto(Wallet wallet) {
@@ -25,6 +28,7 @@ public class LottoService {
 
     private Lotto generateLotto() {
         List<Integer> numbers = Randoms.pickUniqueNumbersInRange(1, 45, 6);
+
         return new Lotto(numbers);
     }
 }

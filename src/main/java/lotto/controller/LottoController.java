@@ -1,45 +1,30 @@
 package lotto.controller;
 
-import lotto.io.Input;
-import lotto.io.Output;
+import lotto.service.InputService;
 import lotto.service.LottoService;
-import lotto.vo.Lotto;
-import lotto.vo.LottoPrice;
 import lotto.vo.Wallet;
 
 public class LottoController {
+    private final InputService inputService;
     private final LottoService lottoService;
 
-    public LottoController(LottoService lottoService) {
+    public LottoController(InputService inputService, LottoService lottoService) {
+        this.inputService = inputService;
         this.lottoService = lottoService;
     }
 
     public void start() {
-        int purchaseAmount = inputPurchaseAmount();
-        Wallet wallet = new Wallet(purchaseAmount);
+        // TODO: 구입 금액 입력
+        Wallet wallet = inputService.getPrice();
 
         // TODO: 로또구매
         lottoService.buyLottos(wallet);
-        printPurchaseResult(wallet);
-        
+
+        // TODO: 당첨번호 입력
+
+        // TODO: 보너스 번호 입력
+
         // TODO: 당첨 확인 및 수익률 계산
 
-    }
-
-    private int inputPurchaseAmount() {
-        try {
-            String input = Input.input(Input.INPUT_MONEY_MESSAGE);
-            return new LottoPrice(Integer.parseInt(input)).getPrice();
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-            return inputPurchaseAmount();
-        }
-    }
-
-    private void printPurchaseResult(Wallet wallet) {
-        System.out.println(String.format(Output.PURCHASE_COUNT_FORMAT, wallet.getLottoCount()));
-        for (Lotto lotto : wallet.getLottos()) {
-            System.out.println(lotto);
-        }
     }
 }
