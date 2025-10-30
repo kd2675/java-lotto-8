@@ -2,7 +2,9 @@ package lotto.controller;
 
 import lotto.service.InputService;
 import lotto.service.LottoService;
+import lotto.vo.BonusNumber;
 import lotto.vo.Wallet;
+import lotto.vo.WinningNumber;
 
 public class LottoController {
     private final InputService inputService;
@@ -21,8 +23,10 @@ public class LottoController {
         lottoService.buyLottos(wallet);
 
         // TODO: 당첨번호 입력
+        WinningNumber winningNumber = inputService.inputWinningNumber();
 
         // TODO: 보너스 번호 입력
+        BonusNumber bonusNumber = inputService.inputBonusNumber(winningNumber);
 
         // TODO: 당첨 확인 및 수익률 계산
 
