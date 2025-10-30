@@ -1,6 +1,4 @@
-package lotto;
-
-import camp.nextstep.edu.missionutils.Console;
+package lotto.io;
 
 public class Output {
     public static final String PURCHASE_COUNT_FORMAT = "%d개를 구매했습니다.";

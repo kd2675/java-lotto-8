@@ -1,4 +1,4 @@
-package lotto;
+package lotto.vo;
 
 public class LottoPrice {
     private final Integer price;

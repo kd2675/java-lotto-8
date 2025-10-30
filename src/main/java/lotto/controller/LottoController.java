@@ -1,4 +1,11 @@
-package lotto;
+package lotto.controller;
+
+import lotto.io.Input;
+import lotto.io.Output;
+import lotto.service.LottoService;
+import lotto.vo.Lotto;
+import lotto.vo.LottoPrice;
+import lotto.vo.Wallet;
 
 public class LottoController {
     private final LottoService lottoService;
