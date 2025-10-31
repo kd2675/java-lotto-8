@@ -11,9 +11,7 @@ public class WinningService {
      * @변경이력 :
      **********************************************************************************************/
     public void winningLottos(Wallet wallet, WinningNumber winningNumber, BonusNumber bonusNumber) {
-        WinningAndBonusNumber winningAndBonusNumber = new WinningAndBonusNumber(winningNumber, bonusNumber);
-
-        WinningStat result = checkWinning(wallet, winningAndBonusNumber);
+        WinningStat result = checkWinning(wallet, winningNumber, bonusNumber);
         Output.printWinningStatistics(result, wallet.getSpentMoney());
     }
 
@@ -23,11 +21,11 @@ public class WinningService {
      * @작성자 : 김도영
      * @변경이력 :
      **********************************************************************************************/
-    public WinningStat checkWinning(Wallet wallet, WinningAndBonusNumber winningAndBonusNumber) {
+    public WinningStat checkWinning(Wallet wallet, WinningNumber winningNumber, BonusNumber bonusNumber) {
         WinningStat result = new WinningStat();
 
         for (Lotto lotto : wallet.getLottos()) {
-            Rank rank = determineRank(lotto, winningAndBonusNumber);
+            Rank rank = determineRank(lotto, winningNumber, bonusNumber);
             result.addRank(rank);
         }
 
@@ -40,9 +38,9 @@ public class WinningService {
      * @작성자 : 김도영
      * @변경이력 :
      **********************************************************************************************/
-    private Rank determineRank(Lotto lotto, WinningAndBonusNumber winningAndBonusNumber) {
-        int matchCount = winningAndBonusNumber.countMatch(lotto);
-        boolean matchBonus = winningAndBonusNumber.matchBonus(lotto);
+    private Rank determineRank(Lotto lotto, WinningNumber winningNumber, BonusNumber bonusNumber) {
+        int matchCount = winningNumber.countMatch(lotto);
+        boolean matchBonus = bonusNumber.match(lotto);
 
         return Rank.valueOf(matchCount, matchBonus);
     }

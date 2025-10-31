@@ -1,6 +1,7 @@
 package lotto.vo;
 
 import java.util.List;
+import java.util.Objects;
 
 public class WinningNumber {
     private final List<Integer> numbers;
@@ -49,13 +50,7 @@ public class WinningNumber {
     }
 
     private void validateEmpty(List<Integer> numbers) {
-        for (Integer number : numbers) {
-            validateEmpty(number);
-        }
-    }
-
-    private void validateEmpty(Integer number) {
-        if (number == null) {
+        if (numbers.size() != numbers.stream().filter(Objects::nonNull).count()) {
             throw new IllegalArgumentException("당첨 번호 오류");
         }
     }
