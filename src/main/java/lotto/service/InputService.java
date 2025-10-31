@@ -1,66 +1,31 @@
 package lotto.service;
 
-import lotto.io.Input;
-import lotto.io.Output;
 import lotto.vo.BonusNumber;
-import lotto.vo.PurchaseAmount;
 import lotto.vo.Wallet;
 import lotto.vo.WinningNumber;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+public interface InputService {
+    /**
+     * @Method 설명 : 구입 금액 입력
+     * @작성일 : 2025. 10. 31.
+     * @작성자 : 김도영
+     * @변경이력 : 
+     **/
+    int inputPurchaseAmount();
 
-public class InputService {
-    public Wallet getPrice() {
-        int purchaseAmount = inputPurchaseAmount();
-        Wallet wallet = new Wallet(purchaseAmount);
+    /**
+     * @Method 설명 : 당첨 번호 입력
+     * @작성일 : 2025. 10. 30.
+     * @작성자 : 김도영
+     * @변경이력 :
+     **/
+    WinningNumber inputWinningNumber();
 
-        return wallet;
-    }
-
-    private int inputPurchaseAmount() {
-        try {
-            String input = Input.inputPurchaseAmount();
-
-            return new PurchaseAmount(input).getPrice();
-        } catch (IllegalArgumentException e) {
-            Output.printErrorMessage(e);
-
-            return inputPurchaseAmount();
-        }
-    }
-
-    public WinningNumber inputWinningNumber() {
-        try {
-            String input = Input.inputWinningNumber();
-            List<Integer> numbers = parseNumbers(input);
-
-            return new WinningNumber(numbers);
-        } catch (IllegalArgumentException e) {
-            Output.printErrorMessage(e);
-
-            return inputWinningNumber();
-        }
-    }
-
-    public BonusNumber inputBonusNumber(WinningNumber winningNumber) {
-        try {
-            String input = Input.inputBonusNumber();
-            int number = Integer.parseInt(input);
-
-            return new BonusNumber(number, winningNumber);
-        } catch (IllegalArgumentException e) {
-            Output.printErrorMessage(e);
-
-            return inputBonusNumber(winningNumber);
-        }
-    }
-
-    private List<Integer> parseNumbers(String input) {
-        return Arrays.stream(input.split(","))
-                .map(String::trim)
-                .map(Integer::parseInt)
-                .collect(Collectors.toList());
-    }
+    /**
+     * @Method 설명 : 보너스 번호 입력
+     * @작성일 : 2025. 10. 30.
+     * @작성자 : 김도영
+     * @변경이력 :
+     **/
+    BonusNumber inputBonusNumber(WinningNumber winningNumber);
 }
